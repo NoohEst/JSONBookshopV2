@@ -32,5 +32,10 @@ namespace JsonBookshop
         {
             return b.Books.Where(p => p.CategoryID == id).ToList<Book>();
         }
+
+        public List<Book> FindBooksByTitle(String title)
+        {
+            return b.Books.Where(p => p.Title.ToLower().Contains(title.ToLower())).ToList<Book>();
+        }
     }
 }

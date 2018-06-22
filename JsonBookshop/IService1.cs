@@ -27,6 +27,10 @@ namespace JsonBookshop
         [OperationContract]
         [WebGet(UriTemplate = "/BooksCat/{id}", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_Book> FindBooksByCatId(string id);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/title/{title}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_Book> FindBooksByTitle(string title);
     }
 
     [DataContract]

@@ -53,5 +53,19 @@ namespace JsonBookshop
             }
             return b1;
         }
+
+        public List<WCF_Book> FindBooksByTitle(string title)
+        {
+            List<Book> booksCat = new Work().FindBooksByTitle(title);
+            List<WCF_Book> b1 = new List<WCF_Book>();
+            foreach (Book p in booksCat)
+            {
+                decimal swDiscount = (p.SWdiscount.HasValue ? p.SWdiscount.Value : 0);
+                decimal finalPrice = (p.finalprice.HasValue ? p.finalprice.Value : 0);
+
+                b1.Add(new WCF_Book(p.BookID, p.Title, p.CategoryID, p.ISBN, p.Author, p.Stock, p.Price, p.Synopsis, swDiscount, finalPrice, p.Category.Name));
+            }
+            return b1;
+        }
     }
 }
