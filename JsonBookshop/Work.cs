@@ -40,8 +40,17 @@ namespace JsonBookshop
 
         public static void UpdateBook(Book book)
         {
-            b.Entry(book).State = System.Data.Entity.EntityState.Modified;
+            Book a = b.Books.Where(p => p.BookID == book.BookID).ToList<Book>()[0];
+            a.Title = book.Title;
+            a.Author = book.Author;
+            a.CategoryID = book.CategoryID;
+            a.ISBN = book.ISBN;
+            a.Stock = book.Stock;
+            a.finalprice = book.finalprice;
+            a.Synopsis = book.Synopsis;
             b.SaveChanges();
+           // b.Entry(book).State = System.Data.Entity.EntityState.Modified;
+           // b.SaveChanges();
         }
 
         public static List<Category> Categories()
