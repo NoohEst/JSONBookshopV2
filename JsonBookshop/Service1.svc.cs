@@ -13,13 +13,13 @@ namespace JsonBookshop
     {
         public List<int> GetBookIds()
         {
-            return new Work().GetBookIds();
+            return Work.GetBookIds();
         }
 
         public WCF_Book GetBook(string id)
         {
             int n = Int32.Parse(id);
-            Book p = new Work().GetBook(n);
+            Book p = Work.GetBook(n);
             decimal swDiscount = (p.SWdiscount.HasValue ? p.SWdiscount.Value : 0);
             decimal finalPrice = (p.finalprice.HasValue ? p.finalprice.Value : 0);
 
@@ -28,7 +28,7 @@ namespace JsonBookshop
 
         public List<WCF_Book> GetBooks()
         {
-            List<Book> books = new Work().GetBooks();
+            List<Book> books = Work.GetBooks();
             List<WCF_Book> booksreturn = new List<WCF_Book>();
             foreach(Book p in books)
             {
@@ -43,7 +43,7 @@ namespace JsonBookshop
         public List<WCF_Book> FindBooksByCatId(string id)
         {
             int n = Int32.Parse(id);
-            List<Book> booksCat= new Work().FindBooksByCatId(n);
+            List<Book> booksCat= Work.FindBooksByCatId(n);
             List<WCF_Book> b1 = new List<WCF_Book>();
             foreach(Book p in booksCat){
                 decimal swDiscount = (p.SWdiscount.HasValue ? p.SWdiscount.Value : 0);
@@ -56,7 +56,7 @@ namespace JsonBookshop
 
         public List<WCF_Book> FindBooksByTitle(string title)
         {
-            List<Book> booksCat = new Work().FindBooksByTitle(title);
+            List<Book> booksCat =  Work.FindBooksByTitle(title);
             List<WCF_Book> b1 = new List<WCF_Book>();
             foreach (Book p in booksCat)
             {
@@ -66,6 +66,35 @@ namespace JsonBookshop
                 b1.Add(new WCF_Book(p.BookID, p.Title, p.CategoryID, p.ISBN, p.Author, p.Stock, p.Price, p.Synopsis, swDiscount, finalPrice, p.Category.Name));
             }
             return b1;
+        }
+
+        public void Update(WCF_Book b)
+        {
+            Book book = new Book
+            {
+                BookID=b.BookID,
+                Title=b.Title,
+                CategoryID = b.CategoryID,
+                ISBN = b.ISBN,
+                Author = b.Author,
+                Stock = b.Stock,
+                Price = b.Price,
+                Synopsis = b.Synopsis,
+                SWdiscount = b.SWDiscount,
+                finalprice = b.FinalPrice
+        };
+            Work.UpdateBook(book);
+        }
+
+        public List<WCF_Category> ListCategories()
+        {
+            List<WCF_Category> catlist = new List<WCF_Category>();
+            List<Category> oldlist = Work.Categories();
+            foreach(Category c in oldlist)
+            {
+                catlist.Add(new WCF_Category(c.CategoryID, c.Name));
+            }
+            return catlist;
         }
     }
 }

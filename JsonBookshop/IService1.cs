@@ -31,43 +31,109 @@ namespace JsonBookshop
         [OperationContract]
         [WebGet(UriTemplate = "/title/{title}", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_Book> FindBooksByTitle(string title);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/Update", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void Update(WCF_Book b);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/Categories", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_Category> ListCategories();
     }
 
     [DataContract]
     public class WCF_Book
     {
-        [DataMember]
-        public int BookID;
+        int bookID;
+        string title;
+        int categoryID;
+        string isbn;
+        string author;
+        int stock;
+        decimal price;
+        string synopsis;
+        decimal swDiscount;
+        decimal finalPrice;
+        string categoryName;
 
         [DataMember]
-        public string Title;
+        public int BookID
+        {
+            get { return bookID; }
+            set { bookID = value; }
+        }
 
         [DataMember]
-        public int CategoryID;
+        public string Title
+        {
+            get { return title; }
+            set { title = value; }
+        }
 
         [DataMember]
-        public string ISBN;
+        public int CategoryID
+        {
+            get { return categoryID; }
+            set { categoryID = value; }
+        }
 
         [DataMember]
-        public string Author;
+        public string ISBN
+        {
+            get { return isbn; }
+            set { isbn = value; }
+        }
 
         [DataMember]
-        public int Stock;
+        public string Author
+        {
+            get { return author; }
+            set { author = value; }
+        }
 
         [DataMember]
-        public decimal Price;
+        public int Stock
+        {
+            get { return stock; }
+            set { stock = value; }
+        }
 
         [DataMember]
-        public string Synopsis;
+        public decimal Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
 
         [DataMember]
-        public decimal SWDiscount;
+        public string Synopsis
+        {
+            get { return synopsis; }
+            set { synopsis = value; }
+        }
 
         [DataMember]
-        public decimal FinalPrice;
+        public decimal SWDiscount
+        {
+            get { return swDiscount; }
+            set { swDiscount = value; }
+        }
 
         [DataMember]
-        public string CategoryName;
+        public decimal FinalPrice
+        {
+            get { return finalPrice; }
+            set { finalPrice = value; }
+        }
+
+        [DataMember]
+        public string CategoryName
+        {
+            get { return categoryName; }
+            set { categoryName = value; }
+        }
 
         public WCF_Book(int BookID, string Title, int CategoryID, string ISBN, string Author, int Stock, decimal Price, string Synopsis, decimal SWDiscount, decimal FinalPrice, string CategoryName)
         {
@@ -82,6 +148,45 @@ namespace JsonBookshop
             this.SWDiscount = SWDiscount;
             this.FinalPrice = FinalPrice;
             this.CategoryName = CategoryName;
+        }
+
+        public WCF_Book(int BookID, string Title, int CategoryID, string ISBN, string Author, int Stock, decimal Price, string Synopsis, decimal SWDiscount, decimal FinalPrice)
+        {
+            this.BookID = BookID;
+            this.Title = Title;
+            this.CategoryID = CategoryID;
+            this.ISBN = ISBN;
+            this.Author = Author;
+            this.Stock = Stock;
+            this.Price = Price;
+            this.Synopsis = Synopsis;
+            this.SWDiscount = SWDiscount;
+            this.FinalPrice = FinalPrice;
+        }
+    }
+
+    [DataContract]
+    public class WCF_Category
+    {
+        int catID;
+        string catName;
+        [DataMember]
+        public int CatID
+        {
+            get { return catID; }
+            set { catID = value; }
+        }
+        [DataMember]
+        public string CatName
+        {
+            get { return catName; }
+            set { catName = value; }
+        }
+
+        public WCF_Category(int catID, string catName)
+        {
+            this.CatID = catID;
+            this.CatName = catName;
         }
     }
 }

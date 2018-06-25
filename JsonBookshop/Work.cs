@@ -7,13 +7,13 @@ namespace JsonBookshop
 {
     public class Work
     {
-        BookshopModel b = new BookshopModel();
-        public List<Book> GetBooks()
+        static BookshopModel b = new BookshopModel();
+        public static List<Book> GetBooks()
         {
             return b.Books.ToList<Book>();
         }
 
-        public List<int> GetBookIds()
+        public static List<int> GetBookIds()
         {
             List<int> list = new List<int>();
             foreach (Book p in GetBooks())
@@ -23,19 +23,30 @@ namespace JsonBookshop
             return list;
         }
 
-        public Book GetBook(int id)
+        public static Book GetBook(int id)
         {
             return b.Books.Where(p => p.BookID == id).ToList<Book>()[0];
         }
 
-        public List<Book> FindBooksByCatId(int id)
+        public static List<Book> FindBooksByCatId(int id)
         {
             return b.Books.Where(p => p.CategoryID == id).ToList<Book>();
         }
 
-        public List<Book> FindBooksByTitle(String title)
+        public static List<Book> FindBooksByTitle(String title)
         {
             return b.Books.Where(p => p.Title.ToLower().Contains(title.ToLower())).ToList<Book>();
+        }
+
+        public static void UpdateBook(Book book)
+        {
+            b.Entry(b).State = System.Data.Entity.EntityState.Modified;
+            b.SaveChanges();
+        }
+
+        public static List<Category> Categories()
+        {
+            return b.Categories.ToList<Category>();
         }
     }
 }
