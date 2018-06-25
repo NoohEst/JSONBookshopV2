@@ -40,7 +40,7 @@ namespace JsonBookshop
 
         public static void UpdateBook(Book book)
         {
-            b.Entry(b).State = System.Data.Entity.EntityState.Modified;
+            b.Entry(book).State = System.Data.Entity.EntityState.Modified;
             b.SaveChanges();
         }
 
